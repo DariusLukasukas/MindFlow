@@ -15,7 +15,13 @@ import { useKeyboardShortcuts } from "@/app/context/KeyboardShortcutsContext";
 
 export default function Menu() {
   const { theme, setTheme } = useTheme();
-  const { toggleBlur, clearThoughts } = useKeyboardShortcuts();
+  const {
+    toggleBlur,
+    clearThoughts,
+    toggleSearchBar,
+    isSearchBarVisible,
+    setSearchTerm,
+  } = useKeyboardShortcuts();
 
   useHotkeys(["t"], () => {
     setTheme(theme === "light" ? "dark" : "light");
@@ -23,6 +29,15 @@ export default function Menu() {
 
   useHotkeys(["b"], () => {
     toggleBlur();
+  });
+
+  useHotkeys(["ctrl + f"], () => {
+    toggleSearchBar();
+  });
+
+  useHotkeys(["esc"], () => {
+    isSearchBarVisible ? toggleSearchBar() : "";
+    setSearchTerm("");
   });
 
   const handleChangeTheme = () => {
@@ -55,9 +70,9 @@ export default function Menu() {
           <span>Toggle Blur</span>
           <DropdownMenuShortcut>B</DropdownMenuShortcut>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={toggleSearchBar}>
           <span>Search Thoughts</span>
-          <DropdownMenuShortcut>⌘F</DropdownMenuShortcut>
+          <DropdownMenuShortcut>ctrl+F</DropdownMenuShortcut>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={handleChangeTheme}>
           <span>Toggle Theme</span>

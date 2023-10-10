@@ -16,15 +16,7 @@ export default function ThoughtItem({ thought, onDelete }: ThoughtItemProps) {
     formatThoughtTimestamp(thought.timestamp)
   );
   const [isBlurred, setIsBlurred] = useState(true);
-  const { isBlurred: globalBlur } = useKeyboardShortcuts();
-
-  useEffect(() => {
-    if (globalBlur) {
-      setIsBlurred(true);
-    } else {
-      setIsBlurred(false);
-    }
-  }, [globalBlur]);
+  const { isBlurred: globalBlur, searchTerm } = useKeyboardShortcuts();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -36,16 +28,34 @@ export default function ThoughtItem({ thought, onDelete }: ThoughtItemProps) {
     };
   }, [thought.timestamp]);
 
+  useEffect(() => {
+    if (globalBlur) {
+      setIsBlurred(true);
+    } else {
+      setIsBlurred(false);
+    }
+  }, [globalBlur]);
+
+  const isMatch = thought.value
+    .toLowerCase()
+    .includes(searchTerm.toLowerCase());
+
   return (
     <li
       key={thought.id}
       className={twMerge(
         "group items-center hover:blur-0 select-none hover:bg-neutral-100 dark:hover:bg-neutral-800 relative flex gap-2 w-full p-3 rounded-md focus:blur-0 focus:outline-none focus:bg-neutral-100 dark:focus:bg-neutral-800 transition",
-        isBlurred ? "ease-in-out transition blur-sm duration-500" : ""
+        isBlurred ? "ease-in-out transition blur-sm duration-500" : "",
+        searchTerm && isMatch ? "blur-0" : ""
       )}
       tabIndex={0}
     >
-      <span className="absolute text-sm group-hover:block hidden -left-20 text-neutral-500 dark:text-neutral-200 group-focus:block">
+      <span
+        className={twMerge(
+          "absolute text-sm group-hover:block hidden -left-20 text-neutral-500 dark:text-neutral-200 group-focus:block transition duration-500 ease-in-out",
+          searchTerm && isMatch ? "block" : ""
+        )}
+      >
         {displayedTimestamp}
       </span>
       <p className="dark:text-neutral-100 text-black">{thought.value}</p>

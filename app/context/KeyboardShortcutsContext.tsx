@@ -14,11 +14,18 @@ export const KeyboardShortcutsContext = createContext({
   thoughts: [] as Thought[],
   clearThoughts: () => {},
   setThoughts: (thoughts: Thought[]) => {},
+  isSearchBarVisible: false,
+  toggleSearchBar: () => {},
+  searchTerm: "",
+  setSearchTerm: (string: string) => {},
 });
 
 export const KeyboardShortcutsProvider = ({ children }: any) => {
   const [isBlurred, setIsBlurred] = useState(true);
   const [thoughts, setThoughts] = useState<Thought[]>([]);
+  const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   const toggleBlur = () => {
     setIsBlurred((prev) => !prev);
@@ -29,12 +36,20 @@ export const KeyboardShortcutsProvider = ({ children }: any) => {
     localStorage.removeItem("thoughts");
   };
 
+  const toggleSearchBar = () => {
+    setIsSearchBarVisible((prev) => !prev);
+  };
+
   const value = {
     isBlurred,
     toggleBlur,
     thoughts,
     setThoughts,
     clearThoughts,
+    isSearchBarVisible,
+    toggleSearchBar,
+    searchTerm,
+    setSearchTerm,
   };
 
   return (

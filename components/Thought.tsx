@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import ThoughtItem from "./ThoughtItem";
 import DOMPurify from "dompurify";
 import { useKeyboardShortcuts } from "@/app/context/KeyboardShortcutsContext";
+import Search from "./Search";
 
 export interface Thought {
   id: string;
@@ -23,6 +24,10 @@ export default function Thought() {
   }, [setThoughts]);
 
   const handleAddThought = (value: string) => {
+    if (value.length === 0) {
+      return;
+    }
+
     const sanitizedValue = DOMPurify.sanitize(value);
 
     const newThought: Thought = {
