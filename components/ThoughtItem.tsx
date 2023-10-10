@@ -15,8 +15,8 @@ export default function ThoughtItem({ thought, onDelete }: ThoughtItemProps) {
   const [displayedTimestamp, setDisplayedTimestamp] = useState(
     formatThoughtTimestamp(thought.timestamp)
   )
-  const [isBlurred, setIsBlurred] = useState(true)
-  const { isBlurred: globalBlur, searchTerm } = useKeyboardShortcuts()
+  const { searchTerm, isGlobalBlur } = useKeyboardShortcuts()
+  const [isThoughtNew, setIsThoughtNew] = useState(thought.isNew)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,12 +29,34 @@ export default function ThoughtItem({ thought, onDelete }: ThoughtItemProps) {
   }, [thought.timestamp])
 
   useEffect(() => {
-    if (globalBlur) {
-      setIsBlurred(true)
-    } else {
-      setIsBlurred(false)
+    if (isThoughtNew && isGlobalBlur) {
+      const timeout = setTimeout(() => {
+        setIsThoughtNew(false)
+
+        const { isNew, ...thoughtWithoutIsNew } = thought
+        const updatedThoughts = JSON.parse(
+          localStorage.getItem("thoughts") || "[]"
+        )
+        const index = updatedThoughts.findIndex(
+          (t: Thought) => t.id === thought.id
+        )
+        if (index !== -1) {
+          updatedThoughts[index] = thoughtWithoutIsNew
+          localStorage.setItem("thoughts", JSON.stringify(updatedThoughts))
+        }
+      }, 1000)
+
+      return () => {
+        clearTimeout(timeout)
+      }
     }
-  }, [globalBlur])
+  }, [thought, isGlobalBlur, isThoughtNew])
+
+  useEffect(() => {
+    if (!isGlobalBlur) {
+      setIsThoughtNew(false)
+    }
+  }, [isGlobalBlur])
 
   const isMatch = thought.value.toLowerCase().includes(searchTerm.toLowerCase())
 
@@ -43,14 +65,17 @@ export default function ThoughtItem({ thought, onDelete }: ThoughtItemProps) {
       key={thought.id}
       className={twMerge(
         "group relative flex w-full items-center gap-2 rounded-md p-3 transition hover:bg-neutral-100 hover:blur-0 focus:bg-neutral-100 focus:outline-none focus:blur-0 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800",
-        isBlurred ? "blur-sm transition duration-500 ease-in-out" : "",
-        searchTerm && isMatch ? "blur-0" : ""
+        isGlobalBlur
+          ? isThoughtNew
+            ? "blur-0"
+            : "translate-all blur-sm duration-1000 ease-in-out"
+          : "blur-0"
       )}
       tabIndex={0}
     >
       <span
         className={twMerge(
-          "absolute -left-20 hidden select-none text-sm text-neutral-500 transition duration-500 ease-in-out group-hover:block group-focus:block dark:text-neutral-200",
+          "absolute -left-20 hidden select-none text-sm text-neutral-500 transition delay-1000 ease-in-out group-hover:block group-focus:block dark:text-neutral-200",
           searchTerm && isMatch ? "block" : ""
         )}
       >

@@ -9,8 +9,7 @@ export interface Thought {
 }
 
 export const KeyboardShortcutsContext = createContext({
-  isBlurred: false,
-  toggleBlur: () => {},
+  isGlobalBlur: true,
   thoughts: [] as Thought[],
   clearThoughts: () => {},
   setThoughts: (thoughts: Thought[]) => {},
@@ -21,14 +20,14 @@ export const KeyboardShortcutsContext = createContext({
 })
 
 export const KeyboardShortcutsProvider = ({ children }: any) => {
-  const [isBlurred, setIsBlurred] = useState(true)
+  const [isGlobalBlur, setIsGlobalBlur] = useState(true)
   const [thoughts, setThoughts] = useState<Thought[]>([])
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
 
   const [searchTerm, setSearchTerm] = useState("")
 
   const toggleBlur = () => {
-    setIsBlurred((prev) => !prev)
+    setIsGlobalBlur((prev) => !prev)
   }
 
   const clearThoughts = () => {
@@ -41,7 +40,7 @@ export const KeyboardShortcutsProvider = ({ children }: any) => {
   }
 
   const value = {
-    isBlurred,
+    isGlobalBlur,
     toggleBlur,
     thoughts,
     setThoughts,

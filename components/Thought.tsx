@@ -11,6 +11,7 @@ export interface Thought {
   id: string
   timestamp: number
   value: string
+  isNew?: boolean
 }
 
 export default function Thought() {
@@ -34,6 +35,7 @@ export default function Thought() {
       id: nanoid(),
       timestamp: Date.now(),
       value: sanitizedValue,
+      isNew: true,
     }
 
     setThoughts([newThought, ...thoughts])
