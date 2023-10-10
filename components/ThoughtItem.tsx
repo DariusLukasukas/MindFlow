@@ -42,7 +42,7 @@ export default function ThoughtItem({ thought, onDelete }: ThoughtItemProps) {
     <li
       key={thought.id}
       className={twMerge(
-        "group relative flex w-full select-none items-center gap-2 rounded-md p-3 transition hover:bg-neutral-100 hover:blur-0 focus:bg-neutral-100 focus:outline-none focus:blur-0 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800",
+        "group relative flex w-full items-center gap-2 rounded-md p-3 transition hover:bg-neutral-100 hover:blur-0 focus:bg-neutral-100 focus:outline-none focus:blur-0 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800",
         isBlurred ? "blur-sm transition duration-500 ease-in-out" : "",
         searchTerm && isMatch ? "blur-0" : ""
       )}
@@ -50,7 +50,7 @@ export default function ThoughtItem({ thought, onDelete }: ThoughtItemProps) {
     >
       <span
         className={twMerge(
-          "absolute -left-20 hidden text-sm text-neutral-500 transition duration-500 ease-in-out group-hover:block group-focus:block dark:text-neutral-200",
+          "absolute -left-20 hidden select-none text-sm text-neutral-500 transition duration-500 ease-in-out group-hover:block group-focus:block dark:text-neutral-200",
           searchTerm && isMatch ? "block" : ""
         )}
       >

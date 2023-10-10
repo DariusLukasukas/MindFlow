@@ -18,7 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className}, container mx-auto dark:bg-black`}>
+      <body
+        className={`${inter.className}, container mx-auto selection:bg-black selection:text-white dark:bg-black dark:selection:bg-white dark:selection:text-black`}
+      >
         <Providers>
           <KeyboardShortcutsProvider>{children}</KeyboardShortcutsProvider>
         </Providers>

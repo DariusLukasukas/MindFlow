@@ -51,9 +51,7 @@ export default function Thought() {
   return (
     <>
       <div className="mt-20 flex h-full w-full max-w-4xl flex-col items-center justify-center gap-2">
-        <h2 className="w-full p-3 text-2xl font-semibold selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black">
-          Today
-        </h2>
+        <h2 className="w-full p-3 text-2xl font-semibold">Today</h2>
         <input
           spellCheck={false}
           placeholder="What's on your mind?"
