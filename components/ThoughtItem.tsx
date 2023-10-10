@@ -4,20 +4,23 @@ import { useEffect, useState } from "react"
 import { Thought } from "./Thought"
 import { formatThoughtTimestamp } from "@/lib/formatThoughtTimestamp"
 import { twMerge } from "tailwind-merge"
-import { useKeyboardShortcuts } from "@/app/context/KeyboardShortcutsContext"
 
 interface ThoughtItemProps {
   thought: Thought
   onDelete: (id: string) => void
+  isGlobalBlur: boolean
+  searchTerm?: string
 }
 
-export default function ThoughtItem({ thought, onDelete }: ThoughtItemProps) {
+export default function ThoughtItem({
+  thought,
+  onDelete,
+  isGlobalBlur,
+  searchTerm,
+}: ThoughtItemProps) {
   const [displayedTimestamp, setDisplayedTimestamp] = useState(
     formatThoughtTimestamp(thought.timestamp)
   )
-  const { searchTerm, isGlobalBlur } = useKeyboardShortcuts()
-  const [isThoughtNew, setIsThoughtNew] = useState(thought.isNew)
-
   useEffect(() => {
     const interval = setInterval(() => {
       setDisplayedTimestamp(formatThoughtTimestamp(thought.timestamp))
@@ -28,6 +31,7 @@ export default function ThoughtItem({ thought, onDelete }: ThoughtItemProps) {
     }
   }, [thought.timestamp])
 
+  const [isThoughtNew, setIsThoughtNew] = useState(thought.isNew)
   useEffect(() => {
     if (isThoughtNew && isGlobalBlur) {
       const timeout = setTimeout(() => {
@@ -58,8 +62,6 @@ export default function ThoughtItem({ thought, onDelete }: ThoughtItemProps) {
     }
   }, [isGlobalBlur])
 
-  const isMatch = thought.value.toLowerCase().includes(searchTerm.toLowerCase())
-
   return (
     <li
       key={thought.id}
@@ -68,15 +70,14 @@ export default function ThoughtItem({ thought, onDelete }: ThoughtItemProps) {
         isGlobalBlur
           ? isThoughtNew
             ? "blur-0"
-            : "translate-all blur-sm duration-1000 ease-in-out"
+            : "translate-all blur-sm duration-700 ease-in-out"
           : "blur-0"
       )}
       tabIndex={0}
     >
       <span
         className={twMerge(
-          "absolute -left-20 hidden select-none text-sm text-neutral-500 transition delay-1000 ease-in-out group-hover:block group-focus:block dark:text-neutral-200",
-          searchTerm && isMatch ? "block" : ""
+          "absolute -left-20 hidden select-none text-sm text-neutral-500 transition delay-1000 ease-in-out group-hover:block group-focus:block dark:text-neutral-200"
         )}
       >
         {displayedTimestamp}

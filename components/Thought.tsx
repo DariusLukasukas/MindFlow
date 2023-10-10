@@ -5,7 +5,6 @@ import { nanoid } from "nanoid"
 import ThoughtItem from "./ThoughtItem"
 import DOMPurify from "dompurify"
 import { useKeyboardShortcuts } from "@/app/context/KeyboardShortcutsContext"
-import Search from "./Search"
 
 export interface Thought {
   id: string
@@ -15,7 +14,8 @@ export interface Thought {
 }
 
 export default function Thought() {
-  const { thoughts, setThoughts } = useKeyboardShortcuts()
+  const { thoughts, setThoughts, isGlobalBlur, searchTerm } =
+    useKeyboardShortcuts()
 
   useEffect(() => {
     const storedThoughts = localStorage.getItem("thoughts")
@@ -73,6 +73,8 @@ export default function Thought() {
               key={thought.id}
               thought={thought}
               onDelete={handleDeleteThought}
+              isGlobalBlur={isGlobalBlur}
+              searchTerm={searchTerm}
             />
           ))}
         </ul>

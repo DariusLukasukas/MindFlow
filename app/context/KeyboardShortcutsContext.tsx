@@ -23,7 +23,6 @@ export const KeyboardShortcutsProvider = ({ children }: any) => {
   const [isGlobalBlur, setIsGlobalBlur] = useState(true)
   const [thoughts, setThoughts] = useState<Thought[]>([])
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
-
   const [searchTerm, setSearchTerm] = useState("")
 
   const toggleBlur = () => {
