@@ -12,6 +12,7 @@ import {
 } from "./ui/dropdown-menu"
 import { useHotkeys } from "react-hotkeys-hook"
 import { useKeyboardShortcuts } from "@/app/context/KeyboardShortcutsContext"
+import { useEffect } from "react"
 
 export default function Menu() {
   const { theme, setTheme } = useTheme()
@@ -23,21 +24,32 @@ export default function Menu() {
     setSearchTerm,
   } = useKeyboardShortcuts()
 
-  useHotkeys(["t"], () => {
-    setTheme(theme === "light" ? "dark" : "light")
-  })
-
   useHotkeys(["b"], () => {
     toggleBlur()
   })
 
-  useHotkeys(["ctrl + f"], () => {
-    toggleSearchBar()
-  })
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === "f" && event.metaKey) {
+        event.preventDefault() // Prevent the default browser behavior
+        toggleSearchBar() // Toggle your custom search bar
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyPress)
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress)
+    }
+  }, [toggleSearchBar])
 
   useHotkeys(["esc"], () => {
     isSearchBarVisible ? toggleSearchBar() : ""
     setSearchTerm("")
+  })
+
+  useHotkeys(["t"], () => {
+    setTheme(theme === "light" ? "dark" : "light")
   })
 
   const handleChangeTheme = () => {

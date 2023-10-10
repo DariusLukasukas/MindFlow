@@ -13,6 +13,7 @@ export default function Search() {
         {isSearchBarVisible && (
           <input
             type="search"
+            id="searchInput"
             placeholder="Search thoughts..."
             className="z-10 rounded-lg border-transparent bg-neutral-100 p-3 text-sm outline-none focus-visible:bg-neutral-100 dark:bg-neutral-900 dark:placeholder-neutral-500 dark:hover:bg-neutral-900 dark:focus-visible:bg-neutral-900"
             value={searchTermValue}

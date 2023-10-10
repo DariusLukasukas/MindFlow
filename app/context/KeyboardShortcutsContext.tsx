@@ -10,6 +10,7 @@ export interface Thought {
 
 export const KeyboardShortcutsContext = createContext({
   isGlobalBlur: true,
+  toggleBlur: () => {},
   thoughts: [] as Thought[],
   clearThoughts: () => {},
   setThoughts: (thoughts: Thought[]) => {},
