@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { useTheme } from "next-themes";
+import { useTheme } from "next-themes"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,45 +9,45 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { useHotkeys } from "react-hotkeys-hook";
-import { useKeyboardShortcuts } from "@/app/context/KeyboardShortcutsContext";
+} from "./ui/dropdown-menu"
+import { useHotkeys } from "react-hotkeys-hook"
+import { useKeyboardShortcuts } from "@/app/context/KeyboardShortcutsContext"
 
 export default function Menu() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme()
   const {
     toggleBlur,
     clearThoughts,
     toggleSearchBar,
     isSearchBarVisible,
     setSearchTerm,
-  } = useKeyboardShortcuts();
+  } = useKeyboardShortcuts()
 
   useHotkeys(["t"], () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  });
+    setTheme(theme === "light" ? "dark" : "light")
+  })
 
   useHotkeys(["b"], () => {
-    toggleBlur();
-  });
+    toggleBlur()
+  })
 
   useHotkeys(["ctrl + f"], () => {
-    toggleSearchBar();
-  });
+    toggleSearchBar()
+  })
 
   useHotkeys(["esc"], () => {
-    isSearchBarVisible ? toggleSearchBar() : "";
-    setSearchTerm("");
-  });
+    isSearchBarVisible ? toggleSearchBar() : ""
+    setSearchTerm("")
+  })
 
   const handleChangeTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+    setTheme(theme === "light" ? "dark" : "light")
+  }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="p-1.5 rounded-md hover:bg-neutral-100 focus:bg-neutral-100 dark:hover:bg-neutral-800 dark:focus:outline-none dark:focus:bg-neutral-800 focus:outline-none"
+        className="rounded-md p-1.5 hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-none dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 dark:focus:outline-none"
         tabIndex={0}
       >
         <svg
@@ -72,7 +72,10 @@ export default function Menu() {
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={toggleSearchBar}>
           <span>Search Thoughts</span>
-          <DropdownMenuShortcut>ctrl+F</DropdownMenuShortcut>
+          <div className="flex gap-1">
+            <DropdownMenuShortcut>⌘</DropdownMenuShortcut>
+            <DropdownMenuShortcut>F</DropdownMenuShortcut>
+          </div>
         </DropdownMenuItem>
         <DropdownMenuItem onSelect={handleChangeTheme}>
           <span>Toggle Theme</span>
@@ -83,5 +86,5 @@ export default function Menu() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }
