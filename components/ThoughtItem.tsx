@@ -62,6 +62,11 @@ export default function ThoughtItem({
     }
   }, [isGlobalBlur])
 
+  const isMatch =
+    searchTerm &&
+    searchTerm.trim() !== "" &&
+    thought.value.toLowerCase().includes(searchTerm.toLowerCase())
+
   return (
     <li
       key={thought.id}
@@ -69,6 +74,8 @@ export default function ThoughtItem({
         "group relative flex w-full items-center gap-2 rounded-md p-3 transition hover:bg-neutral-100 hover:blur-0 focus:bg-neutral-100 focus:outline-none focus:blur-0 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800",
         isGlobalBlur
           ? isThoughtNew
+            ? "blur-0"
+            : isMatch
             ? "blur-0"
             : "translate-all blur-sm duration-700 ease-in-out"
           : "blur-0"
