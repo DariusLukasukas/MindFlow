@@ -71,14 +71,14 @@ export default function ThoughtItem({
     <li
       key={thought.id}
       className={twMerge(
-        "group relative flex w-full items-center gap-2 rounded-md p-3 transition ease-in hover:bg-neutral-100 hover:blur-0 focus:bg-neutral-100 focus:outline-none focus:blur-0 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800",
+        "group relative flex w-full items-center gap-2 rounded-md p-3 opacity-0 transition-opacity duration-1000 ease-in-out hover:bg-neutral-100 hover:opacity-100 hover:blur-0 focus:bg-neutral-100 focus:outline-none focus:blur-0 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800",
         isGlobalBlur
           ? isThoughtNew
-            ? "blur-0"
+            ? "opacity-100 blur-0"
             : isMatch
-            ? "blur-0"
-            : "translate-all blur-sm duration-700 ease-in-out"
-          : "blur-0"
+            ? "opacity-100 blur-0"
+            : "opacity-50 blur-sm transition-all duration-500"
+          : "opacity-100 blur-0"
       )}
       tabIndex={0}
     >

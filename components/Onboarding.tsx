@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react"
 import ThoughtItem from "./ThoughtItem"
 import { useKeyboardShortcuts } from "@/app/context/KeyboardShortcutsContext"
 import { useOnboarding } from "@/app/context/OnboardingContext"
+import { twMerge } from "tailwind-merge"
 
 export default function Onboarding() {
   const { isGlobalBlur, searchTerm } = useKeyboardShortcuts()
@@ -20,6 +21,7 @@ export default function Onboarding() {
   )
 
   const [currentStep, setCurrentStep] = useState(0)
+  const [animationsComplete, setAnimationsComplete] = useState(false)
 
   const handleClick = () => {
     localStorage.setItem("HAS_ONBOARDED", "true")
@@ -30,6 +32,9 @@ export default function Onboarding() {
     const interval = setInterval(() => {
       if (currentStep < onboardingSteps.length - 1) {
         setCurrentStep((prevStep) => prevStep + 1)
+      } else {
+        // All animations are complete
+        setAnimationsComplete(true)
       }
     }, 2000)
 
@@ -37,6 +42,8 @@ export default function Onboarding() {
       clearInterval(interval)
     }
   }, [currentStep, onboardingSteps])
+
+  //   const allStepsShown = currentStep === onboardingSteps.length - 1
 
   return (
     <>
@@ -58,11 +65,16 @@ export default function Onboarding() {
             />
           ))}
         </ul>
+
         <div className="flex w-full justify-start">
           <button
             tabIndex={0}
             onClick={handleClick}
-            className="ml-1 rounded-md p-2.5 text-black hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-none dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 dark:focus:outline-none"
+            className={twMerge(
+              "ml-1 rounded-md p-2.5 text-black hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-none dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 dark:focus:outline-none",
+              "opacity-0 transition-opacity duration-1000 ease-in-out",
+              animationsComplete && "opacity-100"
+            )}
           >
             <svg fill="currentColor" viewBox="0 0 20 20" className="h-4 w-4">
               <path
