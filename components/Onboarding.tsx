@@ -12,7 +12,7 @@ export default function Onboarding() {
 
   const onboardingSteps = useMemo(
     () => [
-      "Welcome to Flow.",
+      "Welcome to MindFlow.",
       "Clear your mind through raw, unfiltered writing.",
       "Thoughts will fade into the background to make space for new ones.",
       "Don't worry. You can always come back to read your thought process.",
@@ -42,8 +42,6 @@ export default function Onboarding() {
       clearInterval(interval)
     }
   }, [currentStep, onboardingSteps])
-
-  //   const allStepsShown = currentStep === onboardingSteps.length - 1
 
   return (
     <>
