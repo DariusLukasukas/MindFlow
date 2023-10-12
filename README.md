@@ -4,6 +4,10 @@ MindFlow is a unique platform designed to help you clear your mind and unleash y
 
 ## Features
 
+### Local Storage
+
+MindFlow securely stores your thoughts locally in `localStorage`. This means that your writings are saved on your device, providing you with privacy and a seamless writing experience. Your thoughts are easily accessible whenever you return to the platform, allowing you to pick up where you left off.
+
 ### Shortcut Controls
 
 MindFlow integrates intuitive shortcut controls to provide you with a seamless and efficient writing experience. These shortcuts include:
