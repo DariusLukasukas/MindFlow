@@ -15,7 +15,7 @@ export default function Search() {
             type="search"
             id="searchInput"
             placeholder="Search thoughts..."
-            className="z-10 rounded-lg border-transparent bg-neutral-100 p-3 text-sm outline-none focus-visible:bg-neutral-100 dark:bg-neutral-900 dark:placeholder-neutral-500 dark:hover:bg-neutral-900 dark:focus-visible:bg-neutral-900"
+            className="z-10 rounded-lg border-[1px] border-black/5 bg-white p-3 text-sm shadow-md shadow-neutral-300 outline-none dark:border-none dark:bg-neutral-900 dark:placeholder-neutral-500 dark:shadow-none dark:hover:bg-neutral-900 dark:focus-visible:bg-neutral-900"
             value={searchTermValue}
             onChange={(e) => {
               setSearchTermValue(e.target.value)

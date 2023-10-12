@@ -7,8 +7,8 @@ import { twMerge } from "tailwind-merge"
 
 interface ThoughtItemProps {
   thought: Thought
-  onDelete: (id: string) => void
-  isGlobalBlur: boolean
+  onDelete?: (id: string) => void
+  isGlobalBlur?: boolean
   searchTerm?: string
 }
 
@@ -39,14 +39,14 @@ export default function ThoughtItem({
 
         const { isNew, ...thoughtWithoutIsNew } = thought
         const updatedThoughts = JSON.parse(
-          localStorage.getItem("thoughts") || "[]"
+          localStorage.getItem("THOUGHTS") || "[]"
         )
         const index = updatedThoughts.findIndex(
           (t: Thought) => t.id === thought.id
         )
         if (index !== -1) {
           updatedThoughts[index] = thoughtWithoutIsNew
-          localStorage.setItem("thoughts", JSON.stringify(updatedThoughts))
+          localStorage.setItem("THOUGHTS", JSON.stringify(updatedThoughts))
         }
       }, 1000)
 
@@ -71,7 +71,7 @@ export default function ThoughtItem({
     <li
       key={thought.id}
       className={twMerge(
-        "group relative flex w-full items-center gap-2 rounded-md p-3 transition hover:bg-neutral-100 hover:blur-0 focus:bg-neutral-100 focus:outline-none focus:blur-0 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800",
+        "group relative flex w-full items-center gap-2 rounded-md p-3 transition ease-in hover:bg-neutral-100 hover:blur-0 focus:bg-neutral-100 focus:outline-none focus:blur-0 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800",
         isGlobalBlur
           ? isThoughtNew
             ? "blur-0"
@@ -90,12 +90,14 @@ export default function ThoughtItem({
         {displayedTimestamp}
       </span>
       <p className="text-black dark:text-neutral-100">{thought.value}</p>
-      <button
-        className="ml-auto hidden text-sm text-red-500 hover:underline group-hover:block"
-        onClick={() => onDelete(thought.id)}
-      >
-        Delete
-      </button>
+      {onDelete && (
+        <button
+          className="ml-auto hidden text-sm text-red-500 hover:underline group-hover:block"
+          onClick={() => onDelete(thought.id)}
+        >
+          Delete
+        </button>
+      )}
     </li>
   )
 }

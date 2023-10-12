@@ -20,7 +20,11 @@ export const KeyboardShortcutsContext = createContext({
   setSearchTerm: (string: string) => {},
 })
 
-export const KeyboardShortcutsProvider = ({ children }: any) => {
+export const KeyboardShortcutsProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   const [isGlobalBlur, setIsGlobalBlur] = useState(true)
   const [thoughts, setThoughts] = useState<Thought[]>([])
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(false)
@@ -32,7 +36,7 @@ export const KeyboardShortcutsProvider = ({ children }: any) => {
 
   const clearThoughts = () => {
     setThoughts([])
-    localStorage.removeItem("thoughts")
+    localStorage.removeItem("THOUGHTS")
   }
 
   const toggleSearchBar = () => {

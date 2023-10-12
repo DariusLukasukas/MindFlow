@@ -18,7 +18,7 @@ export default function Thought() {
     useKeyboardShortcuts()
 
   useEffect(() => {
-    const storedThoughts = localStorage.getItem("thoughts")
+    const storedThoughts = localStorage.getItem("THOUGHTS")
     if (storedThoughts) {
       setThoughts(JSON.parse(storedThoughts))
     }
@@ -40,20 +40,20 @@ export default function Thought() {
 
     setThoughts([newThought, ...thoughts])
 
-    localStorage.setItem("thoughts", JSON.stringify([newThought, ...thoughts]))
+    localStorage.setItem("THOUGHTS", JSON.stringify([newThought, ...thoughts]))
   }
 
   const handleDeleteThought = (id: string) => {
     const updatedThoughts = thoughts.filter((thought) => thought.id !== id)
     setThoughts(updatedThoughts)
 
-    localStorage.setItem("thoughts", JSON.stringify(updatedThoughts))
+    localStorage.setItem("THOUGHTS", JSON.stringify(updatedThoughts))
   }
 
   return (
     <>
       <div className="mt-20 flex h-full w-full max-w-4xl flex-col items-center justify-center gap-2">
-        <h2 className="w-full p-3 text-2xl font-semibold">Today</h2>
+        <h2 className="w-full p-3 text-2xl font-bold">Today</h2>
         <input
           spellCheck={false}
           placeholder="What's on your mind?"

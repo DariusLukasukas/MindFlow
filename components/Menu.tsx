@@ -31,8 +31,8 @@ export default function Menu() {
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === "f" && event.metaKey) {
-        event.preventDefault() // Prevent the default browser behavior
-        toggleSearchBar() // Toggle your custom search bar
+        event.preventDefault()
+        toggleSearchBar()
       }
     }
 
@@ -59,7 +59,7 @@ export default function Menu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="rounded-md p-1.5 hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-none dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 dark:focus:outline-none"
+        className="rounded-md p-2 hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-none dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 dark:focus:outline-none"
         tabIndex={0}
       >
         <svg
