@@ -89,7 +89,9 @@ export default function ThoughtItem({
       >
         {displayedTimestamp}
       </span>
-      <p className="text-black dark:text-neutral-100">{thought.value}</p>
+      <p className="break-all text-black dark:text-neutral-100">
+        {thought.value}
+      </p>
       {onDelete && (
         <button
           className="ml-auto hidden text-sm text-red-500 hover:underline group-hover:block"
