@@ -67,6 +67,7 @@ export default function Onboarding() {
         <div className="flex w-full justify-start">
           <button
             tabIndex={0}
+            aria-label="Continue"
             onClick={handleClick}
             className={twMerge(
               "ml-1 rounded-md p-2.5 text-black hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-none dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 dark:focus:outline-none",
