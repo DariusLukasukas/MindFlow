@@ -95,7 +95,7 @@ export default function ThoughtItem({
       {onDelete && (
         <button
           aria-label="Delete thought"
-          className="ml-auto hidden text-sm text-red-500 hover:underline group-hover:block"
+          className="ml-auto hidden select-none text-sm text-red-500 ease-in hover:underline group-hover:block"
           onClick={() => onDelete(thought.id)}
         >
           Delete
