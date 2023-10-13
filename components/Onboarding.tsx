@@ -12,10 +12,10 @@ export default function Onboarding() {
 
   const onboardingSteps = useMemo(
     () => [
-      "Welcome to MindFlow.",
+      "Welcome to Mindflow! 😊",
       "Clear your mind through raw, unfiltered writing.",
-      "Thoughts will fade into the background to make space for new ones.",
-      "Don't worry. You can always come back to read your thought process.",
+      "Thoughts will fade into the background to make space for new ones. 💭",
+      "Don't worry. You can always come back to read your thought process. 📚",
     ],
     []
   )
