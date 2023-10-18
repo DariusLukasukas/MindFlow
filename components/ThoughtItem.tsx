@@ -71,13 +71,13 @@ export default function ThoughtItem({
     <li
       key={thought.id}
       className={twMerge(
-        "group relative flex w-full items-center gap-2 rounded-md p-3 opacity-0 transition-opacity duration-1000 ease-in-out hover:bg-neutral-100 hover:opacity-100 hover:blur-0 focus:bg-neutral-100 focus:outline-none focus:blur-0 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800",
+        "group relative flex w-full items-center gap-2 rounded-md p-3 opacity-0 transition-opacity duration-700 ease-in-out hover:bg-neutral-100 hover:opacity-100 hover:blur-0 hover:transition-all hover:duration-500 focus:bg-neutral-100 focus:opacity-100 focus:outline-none focus:blur-0 focus:transition focus:delay-0 focus:duration-500 dark:hover:bg-neutral-800  dark:focus:bg-neutral-800",
         isGlobalBlur
           ? isThoughtNew
             ? "opacity-100 blur-0"
             : isMatch
             ? "opacity-100 blur-0"
-            : "opacity-50 blur-sm transition-all duration-500"
+            : "opacity-50 blur-sm ease-in"
           : "opacity-100 blur-0"
       )}
       tabIndex={0}
